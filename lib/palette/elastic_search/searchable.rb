@@ -17,27 +17,6 @@ module Palette
         def search(query_or_payload, options={})
           __elasticsearch__.search query_or_payload, options.reverse_merge(preference: '_primary_first')
         end
-
-        def inherited(subclass)
-          search_class = self.search_class
-          index_name = self.index_name
-          document_type = self.document_type
-    
-          subclass.instance_eval do
-            @search_class = search_class
-            index_name(index_name)
-            document_type(document_type)
-    
-            def self.mapping(*args, &block)
-              search_class.mapping(*args, &block)
-            end
-          end
-          super
-        end
-    
-        def search_class
-          @search_class || self
-        end
       end
 
       included do
