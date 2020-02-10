@@ -36,6 +36,7 @@ module Palette
 
         index_name { "#{Rails.env.downcase.underscore}_#{self.connection.current_database}_#{self.table_name.underscore}" }
         document_type self.model_name.param_key.underscore.singularize
+        settings[:inheritance_enabled] = true
 
         settings index:
                    {
